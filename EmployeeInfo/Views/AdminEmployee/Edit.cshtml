@@ -1,0 +1,27 @@
+﻿@model EmployeeInfo.Models.Employee
+
+<div class="bg-secondary bg-opacity-10 py-2">
+	<div class="container">
+		<h1>Add New Employee</h1>
+	</div>
+	<div class="container py-5">
+		<form method="post" asp-controller="AdminEmployee" asp-action="Edit" enctype="multipart/form-data">
+			<label>Employee Name</label>
+			<input class="form-control mb-3" type="text" asp-for="Name" />
+			<label>Post</label>
+			<input class="form-control mb-3" type="text" asp-for="Post" />
+			<label>Phone</label>
+			<input class="form-control mb-3" type="number" asp-for="Phone" />
+			<label>Address</label>
+			<input class="form-control mb-3" type="text" asp-for="Address" />
+			<label>Email</label>
+			<input class="form-control mb-3" type="text" asp-for="Email" />
+			<label asp-for="Date">Date</label>
+			<input class="form-control mb-3" type="date" asp-for="Date" />
+			<label>Image Upload</label>
+			<input class="form-control" type="file" asp-for="ImgFile" />
+			<button class="btn btn-outline-primary mt-3">Update</button>
+		</form>
+	</div>
+</div>
+

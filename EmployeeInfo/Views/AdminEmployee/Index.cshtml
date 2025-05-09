@@ -1,0 +1,48 @@
+﻿@model List<Employee>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Post</th>
+			<th>Phone</th>
+			<th>Address</th>
+			<th>Email</th>
+			<th>Date</th>
+			<th>Image</th>
+			<th>Action</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var employee in Model)
+		{
+			<tr>
+				<td>@employee.Id</td>
+				<td>@employee.Name</td>
+				<td>@employee.Post</td>
+				<td>@employee.Phone</td>
+				<td>@employee.Address</td>
+				<td>@employee.Email</td>
+				<td>@employee.Date</td>
+				@* <td><img src="@employee.Image" width="50" alt="Employee Image" /></td> *@
+				<th class="ps-5">@employee.Id</th>
+				@if(employee.Image!=null)
+				{
+					<td><img src="@employee.Image" width="50" height="50" alt="Employee image" /></td>
+				}
+				else
+				{
+					<td><img src="~/assets/no-image.jpg" width="50" height="50" alt="No image" /> </td>
+				}
+				
+				<td > <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@employee.Id"
+				>Edit</a>
+				
+				<a class="btn btn-secondary" asp-action="Delete" asp-route-id="@employee.Id">Delete</a> </td>
+			</tr>
+		}
+
+	</tbody>
+</table>
