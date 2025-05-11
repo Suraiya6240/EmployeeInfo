@@ -15,6 +15,10 @@ namespace EmployeeInfo
             builder.Services.AddControllersWithViews();
             //database connection/inject dependency
             builder.Services.AddDbContext<EmployeeDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeDbConnectionString")));
+
+            // dependency injection
+            builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+
             builder.Services.AddScoped<IImgRepo,ImageRepo>();
             var app = builder.Build();
 
