@@ -5,7 +5,7 @@ using Microsoft.VisualBasic;
 
 namespace EmployeeInfo.Repository
 {
-    public class DeptRepo: IDeptRepo
+    public class DeptRepo : IDeptRepo
     {
         private readonly EmployeeDbContext _Context;
         public DeptRepo(EmployeeDbContext Context)
@@ -23,12 +23,13 @@ namespace EmployeeInfo.Repository
         public async Task<Department?> Delete(int id)
         {
             var DepartmentDelete = await _Context.departments.FindAsync(id);
-            if (DepartmentDelete != null) 
+            if (DepartmentDelete != null)
             {
-             _Context.departments.Remove(DepartmentDelete);
+                _Context.departments.Remove(DepartmentDelete);
                 await _Context.SaveChangesAsync();
                 return DepartmentDelete;
             }
+            return null;
         }
 
         public async Task<IEnumerable<Department>> GetAllDepartment()
@@ -43,15 +44,14 @@ namespace EmployeeInfo.Repository
 
         public async Task<Department?> UpdateDepartment(Department department)
         {
-            var deptUpdate = await _Db.departments.FirstOrDefault(department.Id);
+            var deptUpdate = await _Context.departments.FindAsync(department.Id);
             if (deptUpdate != null)
             {
                 deptUpdate.DepartmentName = department.DepartmentName;
+                await _Context.SaveChangesAsync();
+                return deptUpdate;
             }
-           // _Db.departments.Update(deptUpdate);
-            awit _Db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return null;
         }
-    }
     }
 }
