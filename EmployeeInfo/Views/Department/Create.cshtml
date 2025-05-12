@@ -1,0 +1,14 @@
+﻿ @model EmployeeInfo.Models.Department
+
+<div class="bg-secondary bg-opacity-10 py-2">
+	<div class="container">
+		<h1>Add New Department</h1>
+	</div>
+	<div class="container py-5">
+		<form method="post" asp-controller="DepartmentController" asp-action="Create">
+			<label asp-for="DepartmentName">Department Name</label>
+			<input class="form-control mb-3" type="text" asp-for="DepartmentName" />
+			<button class="btn btn-outline-primary mt-3">Add</button>
+		</form>
+	</div>
+</div>

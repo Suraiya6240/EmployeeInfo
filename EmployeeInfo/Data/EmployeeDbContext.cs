@@ -7,6 +7,7 @@ namespace EmployeeInfo.Data
     {
         public EmployeeDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department>departments { get; set; }
   
     }
 }

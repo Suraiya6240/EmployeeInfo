@@ -18,9 +18,50 @@
 			<input class="form-control mb-3" type="text" asp-for="Email" />
             <label asp-for="Date">Date</label>
 			<input class="form-control mb-3" type="date" asp-for="Date" />
-			<label>Image Upload</label>
-			<input class="form-control" type="file" asp-for="ImgFile" />
+			@* <label>Image Upload</label> *@
+			@* <input class="form-control" type="file" asp-for="ImgFile" /> *@
+
+			@* Image *@
+			<div class="mb-3">
+				<label asp-for="ImgFile" class="form-label"></label>
+				<input type="file" class="form-control" id="imageUpload" asp-for="ImgFile">
+			</div>
+
+			@* Image Preview *@
+			<div class="mb-3">
+				<img src="" id="imageUrl" class="imageUrl" alt="Employee image">
+			</div>
+
 			<button class="btn btn-outline-primary mt-3">Add</button>
 		</form>
 	</div>
 </div>
+@section Scripts
+{
+	<script>
+		async function uploadImage() {
+			const file = document.getElementById('imageUpload').files[0];
+			const formData = new FormData();
+			formData.append('file', file);
+
+			try {
+				const response = await fetch('/api/image', {
+					method: 'POST',
+					headers: {
+						'Accept': '*/*'
+					},
+					body: formData
+				});
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				const data = await response.json();
+				document.getElementById('imageUrl').src = data.link;
+				console.log('Upload successful:', data);
+			} catch (error) {
+				console.error('Upload failed:', error);
+			}
+		}
+		document.getElementById('imageUpload').addEventListener('change', uploadImage);
+	</script>
+}

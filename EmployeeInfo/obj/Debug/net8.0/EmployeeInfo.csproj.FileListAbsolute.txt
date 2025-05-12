@@ -172,3 +172,4 @@ D:\codes-and-projects\Asp_project\EmployeeInfo\EmployeeInfo\obj\Debug\net8.0\ref
 D:\codes-and-projects\Asp_project\EmployeeInfo\EmployeeInfo\obj\Debug\net8.0\EmployeeInfo.pdb
 D:\codes-and-projects\Asp_project\EmployeeInfo\EmployeeInfo\obj\Debug\net8.0\EmployeeInfo.genruntimeconfig.cache
 D:\codes-and-projects\Asp_project\EmployeeInfo\EmployeeInfo\obj\Debug\net8.0\ref\EmployeeInfo.dll
+D:\codes-and-projects\Asp_project\EmployeeInfo\EmployeeInfo\obj\Debug\net8.0\EmployeeInfo.sourcelink.json
