@@ -1,59 +1,51 @@
-﻿using EmployeeInfo.Data;
-using EmployeeInfo.Models;
+﻿using EmployeeInfo.Models;
+using EmployeeInfo.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeInfo.Controllers
 {
     public class DepartmentController : Controller
-    {   
-        private readonly EmployeeDbContext _Db;
-        public DepartmentController(EmployeeDbContext db)
-        {  _Db = db; }
+    {
+        private readonly IDeptRepo _deptRepo;
+        public DepartmentController(IDeptRepo deptRepo)
+        {
+            _deptRepo = deptRepo;
+        }
         public async Task<IActionResult> Index()
         {
-            var depList=await _Db.departments.ToListAsync();
+            var depList = await _deptRepo.GetAllDepartment();
             return View(depList);
         }
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Create(Department department)
         {
-            var depCD = new Department
-            {
-                DepartmentName = department.DepartmentName
-            };
-           await _Db.departments.AddAsync(depCD);
-            await _Db.SaveChangesAsync();
+            await _deptRepo.CreateDepartment(department);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Edit(int id)
         {
-         var deptEdit=await _Db.departments.FindAsync(id);
+            var deptEdit = await _deptRepo.GetDepartmentById(id);
             return View(deptEdit);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Department department) 
+        public async Task<IActionResult> Edit(Department department)
         {
-         var deptUpdate =await _Db.departments.FindAsync(department.Id);
-            if(deptUpdate != null)
+            var deptUpdate = await _deptRepo.UpdateDepartment(department);
+            if (deptUpdate != null)
             {
-                deptUpdate.DepartmentName = department.DepartmentName;
+                return RedirectToAction("Index");
             }
-            _Db.departments.Update(deptUpdate);
-            _Db.SaveChanges();
-            return RedirectToAction("Index");
+            return View();
         }
         public async Task<IActionResult> Delete(int id)
         {
-            var deptDelete =await _Db.departments.FindAsync(id);
-            if(deptDelete != null)
+            var deptDelete = await _deptRepo.Delete(id);
+            if (deptDelete != null)
             {
-                _Db.departments.Remove(deptDelete);
-                _Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");

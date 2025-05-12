@@ -1,7 +1,6 @@
 using EmployeeInfo.Data;
 using EmployeeInfo.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace EmployeeInfo
 {
@@ -16,10 +15,10 @@ namespace EmployeeInfo
             //database connection/inject dependency
             builder.Services.AddDbContext<EmployeeDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeDbConnectionString")));
 
-            // dependency injection
             builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
-
             builder.Services.AddScoped<IImgRepo,ImageRepo>();
+            builder.Services.AddScoped<IDeptRepo, DeptRepo>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
